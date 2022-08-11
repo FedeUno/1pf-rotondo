@@ -1,0 +1,29 @@
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header header header header  header header  header  header  header  "
+    "menu  main main  main main main    main    main    main    "
+    "footer footer footer footer  footer footer  footer  footer  footer  ";
+  grid-template-columns: 1fr 10fr;
+  grid-template-rows: 1fr 10fr 1fr;
+}
+
+.grid-header {
+  background-color: burlywood;
+  grid-area: header;
+}
+
+.grid-menu {
+  grid-area: menu;
+  background-color: white;
+}
+
+.grid-students {
+  grid-area: main;
+  background-color: rgb(86, 57, 155);
+}
+
+.grid-footer {
+  grid-area: footer;
+  background-color: rgb(189, 49, 165);
+}
