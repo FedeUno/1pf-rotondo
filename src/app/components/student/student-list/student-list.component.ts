@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentCrudComponent } from '../student-crud/student-crud.component';
+import { StudentsService } from '../../../services/students.service';
+import { map, Subscription } from 'rxjs'
 
 export interface Student {
   id: number;
@@ -12,109 +14,72 @@ export interface Student {
   enrolled: boolean;
 }
 
-const ELEMENT_DATA: Student[] = [
-  {
-    id: 1,
-    name: 'Martín',
-    lastname: 'García',
-    course: 'Angular',
-    score: 65,
-    enrolled: true,
-  },
-  {
-    id: 2,
-    name: 'Evaristo',
-    lastname: 'Pintos',
-    course: 'NodeJS',
-    score: 34,
-    enrolled: false,
-  },
-  {
-    id: 3,
-    name: 'Paula',
-    lastname: 'Cinderella',
-    course: 'ReactJS',
-    score: 87,
-    enrolled: true,
-  },
-  {
-    id: 4,
-    name: 'Cristin',
-    lastname: 'Lagarde',
-    course: 'MongoDB',
-    score: 12,
-    enrolled: false,
-  },
-  {
-    id: 5,
-    name: 'Paul',
-    lastname: 'Lowed',
-    course: '.NET',
-    score: 90,
-    enrolled: true,
-  },
-  {
-    id: 6,
-    name: 'Susana',
-    lastname: 'Horia',
-    course: 'SQL',
-    score: 44,
-    enrolled: false,
-  },
-  {
-    id: 7,
-    name: 'Lorem',
-    lastname: 'Ipsum',
-    course: 'HTML',
-    score: 53,
-    enrolled: false,
-  },
-];
-
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css'],
 })
-export class StudentListComponent implements OnInit {
+export class StudentListComponent implements OnInit, OnDestroy {
+  students: Student[] = [];
+  suscription!:Subscription;
   columns: string[] = ['name', 'course', 'score', 'enrolled', 'actions'];
 
-  dataSource: MatTableDataSource<Student> = new MatTableDataSource(
-    ELEMENT_DATA
-  );
+  dataSource: MatTableDataSource<Student>;
 
   @ViewChild(MatTable) table!: MatTable<Student>;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private studentService: StudentsService
+  ) {
+    
+    this.suscription = this.studentService.getStudents().pipe(
+      map( (students:Student[]) => students.filter ((student)=>student.score > 50) )  
+    ).subscribe((student) => {this.students = student }) 
 
-  ngOnInit(): void {}
+   this.dataSource = new MatTableDataSource(this.students);
+   
+  }
+
+  ngOnInit(): void {  }
 
   delete(element: Student) {
     this.dataSource.data = this.dataSource.data.filter(
       (course: Student) => course.id != element.id
     );
+    this.students = this.dataSource.data  
+    console.log(this.students)
   }
 
   edit(element: Student) {
     const dialogRef = this.dialog.open(StudentCrudComponent, {
-      width: '350px',
+      width: '280px',
       data: element,
     });
-
+    console.log(this.students)
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const item = this.dataSource.data.find(
+        const item = this.students.find(
           (student) => student.id === result.id
         );
-        const index = this.dataSource.data.indexOf(item!);
-        this.dataSource.data[index] = result;
+        const index = this.students.indexOf(item!);
+        this.students[index] = result;
         this.table.renderRows();
       }
     });
   }
 
-  filter(event: Event) {
+   filter(event: Event) {
     const obtainedValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = obtainedValue.trim().toLocaleLowerCase();
+  } 
+
+
+  add(){
+    
+  }
+
+  ngOnDestroy(): void {
+      this.suscription.unsubscribe()
   }
 }

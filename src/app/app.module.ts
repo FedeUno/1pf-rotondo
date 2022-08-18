@@ -12,6 +12,12 @@ import { MaterialModule } from './modules/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransformDirective } from './directives/transform.directive';
 import { ConversorPipe } from './pipes/conversor.pipe';
+import { StudentAddComponent } from './components/student/student-add/student-add.component';
+import { CourseComponent } from './components/course/course.component';
+import { TopTenComponent } from './components/top-ten/top-ten.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { BeginComponent } from './components/begin/begin.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +29,16 @@ import { ConversorPipe } from './pipes/conversor.pipe';
     StudentCrudComponent,
     TransformDirective,
     ConversorPipe,
+    StudentAddComponent,
+    CourseComponent,
+    TopTenComponent,
+    PageNotFoundComponent,
+    BeginComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
   ],

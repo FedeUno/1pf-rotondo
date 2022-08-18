@@ -1,0 +1,17 @@
+h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 30rem;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 2rem;
+  background-color: aliceblue;
+}
+
+table {
+  width: 100%;
+}

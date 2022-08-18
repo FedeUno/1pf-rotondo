@@ -23,6 +23,11 @@
   background-color: rgb(86, 57, 155);
 }
 
+.grid-courses {
+  grid-area: main;
+  background-color: rgb(86, 57, 155);
+}
+
 .grid-footer {
   grid-area: footer;
   background-color: rgb(189, 49, 165);

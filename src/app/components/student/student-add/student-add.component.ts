@@ -5,12 +5,16 @@ import { Student } from '../student-list/student-list.component';
 import { StudentsService } from '../../../services/students.service';
 import { Subscription } from 'rxjs';
 
+
+
+
+
 @Component({
-  selector: 'app-student-crud',
-  templateUrl: './student-crud.component.html',
-  styleUrls: ['./student-crud.component.css'],
+  selector: 'app-student-add',
+  templateUrl: './student-add.component.html',
+  styleUrls: ['./student-add.component.css']
 })
-export class StudentCrudComponent implements OnDestroy{
+export class StudentAddComponent implements OnDestroy {
   form: FormGroup;
   students: Student[] = [];
   subscription: Subscription;
@@ -18,7 +22,7 @@ export class StudentCrudComponent implements OnDestroy{
   constructor(
     private studentService: StudentsService,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<StudentCrudComponent>,
+    private dialogRef: MatDialogRef<StudentAddComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Student
   ) {
     this.form = fb.group({
@@ -35,16 +39,12 @@ export class StudentCrudComponent implements OnDestroy{
     });
   }
 
-  toupdate() {
-    this.students.push(this.form.value);
-    this.dialogRef.close(this.form.value);
-  }
+  add() {   
+      this.students.push(this.form.value);
+      this.dialogRef.close(this.form.value); 
+    }
 
-  toclose() {
-    this.dialogRef.close();
-  }
-
-  ngOnDestroy(): void {
-      this.subscription.unsubscribe()
-  }
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe()
+    }
 }
