@@ -1,0 +1,30 @@
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Lastname</mat-label>
+      <input formControlName="lastname" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <input formControlName="course" matInput />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Score</mat-label>
+      <input formControlName="score" matInput />
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="enrolled"> Enrolled </mat-slide-toggle>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="toclose()">To Close</button>
+  <button mat-button (click)="toupdate()">To Update</button>
+</div>

@@ -1,46 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './components/layouts/navbar/navbar.component';
-import { ToolbarComponent } from './components/layouts/toolbar/toolbar.component';
-import { FooterComponent } from './components/layouts/footer/footer.component';
-import { StudentListComponent } from './components/student/student-list/student-list.component';
-import { StudentCrudComponent } from './components/student/student-crud/student-crud.component';
-import { MaterialModule } from './modules/material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TransformDirective } from './directives/transform.directive';
-import { ConversorPipe } from './pipes/conversor.pipe';
-import { StudentAddComponent } from './components/student/student-add/student-add.component';
-import { CourseComponent } from './components/course/course.component';
-import { TopTenComponent } from './components/top-ten/top-ten.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { BeginComponent } from './components/begin/begin.component';
+import { CoursesModule } from './features/courses/courses.module';
+import { CoreModule } from './core/core.module';
+import { StudentsModule } from './features/students/students.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    ToolbarComponent,
-    FooterComponent,
-    StudentListComponent,
-    StudentCrudComponent,
-    TransformDirective,
-    ConversorPipe,
-    StudentAddComponent,
-    CourseComponent,
-    TopTenComponent,
-    PageNotFoundComponent,
-    BeginComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
+    CoreModule,
+    CoursesModule,
+    StudentsModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

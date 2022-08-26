@@ -1,19 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StudentListComponent } from '../app/components/student/student-list/student-list.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { BeginComponent } from './components/begin/begin.component';
-import { CourseComponent } from './components/course/course.component';
-import { TopTenComponent } from './components/top-ten/top-ten.component';
+import { PageNotFoundComponent } from './shared/layouts/page-not-found/page-not-found.component';
+import { DashboardComponent } from './shared/layouts/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'begin', component: BeginComponent },
-  { path: 'students', component: StudentListComponent },
-  { path: 'courses', component: CourseComponent },
-  { path: 'top-ten', component: TopTenComponent },
-  { path: 'page-not-found', component: PageNotFoundComponent },
+  {
+    path: 'students',
+    loadChildren: () =>
+      import('./features/students/students.module').then(
+        (m) => m.StudentsModule
+      ),
+  },
 
-  { path: '', redirectTo: 'begin', pathMatch: 'full' },
+  {
+    path: 'courses',
+    loadChildren: () =>
+      import('./features/courses/courses.module').then((m) => m.CoursesModule),
+  },
+
+  /*   {
+    path: 'inscriptions',
+    loadChildren: () =>
+      import('./../features/alumnos/alumnos.module').then(
+        (m) => m.AlumnosModule
+      ),
+    canActivate: [LoginGuard],
+  },
+ */
+
+  { path: '', component: DashboardComponent },
+
   { path: '**', component: PageNotFoundComponent },
 ];
 

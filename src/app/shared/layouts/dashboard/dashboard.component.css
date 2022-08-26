@@ -1,0 +1,42 @@
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header header header header  header header  header  header  header  "
+    "menu  main main  main main main    main    main    main    "
+    "footer footer footer footer  footer footer  footer  footer  footer  ";
+  grid-template-columns: 1fr 10fr;
+  grid-template-rows: 1fr 10fr 1fr;
+}
+
+.grid-header {
+  background-color: rgb(91, 65, 182);
+  grid-area: header;
+}
+
+.grid-menu {
+  grid-area: menu;
+  background-color: rgb(204, 231, 231);
+}
+
+.grid-students {
+  grid-area: main;
+  background-color: #1f2023;
+}
+
+/*
+Paleta de colores:
+#1f2023 oscuro   #f9f9f9 (letra)
+#27282d gris claro (bck)    #bebebe (letra)
+#e5f876 amarillo
+#393b43 gris más claro
+
+ */
+.grid-courses {
+  grid-area: main;
+  background-color: rgb(86, 57, 155);
+}
+
+.grid-footer {
+  grid-area: footer;
+  background-color: rgb(189, 49, 165);
+}
