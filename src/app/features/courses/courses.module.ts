@@ -4,7 +4,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormCoursesComponent } from './components/form-courses/form-courses.component';
 import { DashboardCursosComponent } from './components/dashboard-courses/dashboard-courses.component';
 import { CoursesRoutingModule } from './courses-routing.module';
-import { CoursesService } from './services/courses.service';
+import { CoursesService } from '../../services/courses.service';
 
 @NgModule({
   declarations: [DashboardCursosComponent, FormCoursesComponent],

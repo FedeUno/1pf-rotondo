@@ -7,6 +7,8 @@ import { CoursesModule } from './features/courses/courses.module';
 import { CoreModule } from './core/core.module';
 import { StudentsModule } from './features/students/students.module';
 import { SharedModule } from './shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
     CoursesModule,
     StudentsModule,
     SharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

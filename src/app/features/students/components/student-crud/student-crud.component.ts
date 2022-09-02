@@ -1,10 +1,9 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
 import { Subscription } from 'rxjs';
-import { Student, StudentsService } from '../../services/students.service';
-
+import { StudentsService } from '../../../../services/students.service';
+import { Student } from 'src/app/core/interfaces/student';
 
 @Component({
   selector: 'app-student-crud',
@@ -28,10 +27,9 @@ export class StudentCrudComponent implements OnDestroy{
       lastname: new FormControl(data.lastname),
       course: new FormControl(data.course),
       score: new FormControl(data.score),
-      enrolled: new FormControl(data.enrolled),
     });
 
-    this.subscription = this.studentService.getStudents().subscribe((students) => {
+    this.subscription = this.studentService.obtenerStudents().subscribe((students) => {
       this.students = students;
     });
   }

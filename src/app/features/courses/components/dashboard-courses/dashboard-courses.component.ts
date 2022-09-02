@@ -1,9 +1,10 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription, map } from 'rxjs';
-import { Course, CoursesService } from '../../services/courses.service';
+import { Subscription, Observable } from 'rxjs';
+import { CoursesService } from '../../../../services/courses.service';
 import { FormCoursesComponent } from '../form-courses/form-courses.component';
+import { Course } from '../../../../core/interfaces/course';
 
 
 
@@ -13,8 +14,11 @@ import { FormCoursesComponent } from '../form-courses/form-courses.component';
   templateUrl: './dashboard-courses.component.html',
   styleUrls: ['./dashboard-courses.component.css'],
 })
-export class DashboardCursosComponent implements OnDestroy {
+export class DashboardCursosComponent implements OnInit, OnDestroy {
+  
   courses: Course[] = [];
+
+  courses$!: Observable<Course[]>
 
   subscription!: Subscription;
 
@@ -28,8 +32,10 @@ export class DashboardCursosComponent implements OnDestroy {
     private coursesService: CoursesService,
     private dialog: MatDialog,    
     ) {
-    this.subscription = this.coursesService.getCourses()
+
+      this.subscription = this.coursesService.getCourses()
      .subscribe((courses) => {this.courses = courses }) 
+
 
 
     this.dataSource = new MatTableDataSource(this.courses);
@@ -37,15 +43,14 @@ export class DashboardCursosComponent implements OnDestroy {
 
 
 
-   //  ---------------------------
 
-  delete(element: Course) {
+/*   delete(element: Course) {
     this.dataSource.data = this.dataSource.data.filter(
       (course: Course) => course.id != element.id
     );
     this.courses = this.dataSource.data  
  
-  }
+  } */
 
   edit(element: Course) {
     const dialogRef = this.dialog.open(FormCoursesComponent, {
@@ -70,12 +75,18 @@ export class DashboardCursosComponent implements OnDestroy {
     this.dataSource.filter = obtainedValue.trim().toLocaleLowerCase();
   } 
 
+  ngOnInit(): void {
+      this.courses$ = this.coursesService.getCourses()
+  }
 
-
-   //  ---------------------------
-
+  delete(id:string){
+    this.coursesService.deleteCourse(id).subscribe((course:Course)=>{
+      this.ngOnInit()
+    })
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
 }

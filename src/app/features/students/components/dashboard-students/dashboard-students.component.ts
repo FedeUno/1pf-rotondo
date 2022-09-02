@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentCrudComponent } from '../student-crud/student-crud.component';
 import { map, Subscription } from 'rxjs';
-import { StudentsService, Student } from '../../services/students.service';
+import { StudentsService } from '../../../../services/students.service';
+import { Student } from 'src/app/core/interfaces/student';
 
 
 @Component({
@@ -11,10 +12,10 @@ import { StudentsService, Student } from '../../services/students.service';
   templateUrl: './dashboard-students.component.html',
   styleUrls: ['./dashboard-students.component.css']
 })
-export class DashboardStudentsComponent implements OnInit, OnDestroy {
+export class DashboardStudentsComponent implements OnDestroy {
   students: Student[] = [];
-  suscription!:Subscription;
-  columns: string[] = ['name', 'course', 'score', 'enrolled', 'actions'];
+  subscription!:Subscription;
+  columns: string[] = ['name', 'course', 'score', 'actions'];
 
   dataSource: MatTableDataSource<Student>;
 
@@ -25,15 +26,18 @@ export class DashboardStudentsComponent implements OnInit, OnDestroy {
     private studentService: StudentsService
   ) {
     
-    this.suscription = this.studentService.getStudents().pipe(
+    this.subscription = this.studentService.obtenerStudents()
+    .subscribe((students) => {this.students = students })  
+
+
+/*     this.subscription = this.studentService.obtenerStudents().pipe(
       map( (students:Student[]) => students.filter ((student)=>student.score > 50) )  
-    ).subscribe((student) => {this.students = student }) 
+    ).subscribe((student) => {this.students = student })  */
 
    this.dataSource = new MatTableDataSource(this.students);
    
   }
 
-  ngOnInit(): void {  }
 
   delete(element: Student) {
     this.dataSource.data = this.dataSource.data.filter(
@@ -67,11 +71,7 @@ export class DashboardStudentsComponent implements OnInit, OnDestroy {
   } 
 
 
-  add(){
-    
-  }
-
   ngOnDestroy(): void {
-      this.suscription.unsubscribe()
+      this.subscription.unsubscribe()
   }
 }

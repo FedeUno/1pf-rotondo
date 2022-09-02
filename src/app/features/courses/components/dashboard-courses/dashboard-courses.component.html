@@ -1,6 +1,6 @@
 <div class="table-container">
   <div class="container-item">
-    <table class="cont-table" mat-table [dataSource]="courses">
+    <table class="cont-table" mat-table [dataSource]="courses$">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Course</th>
         <td mat-cell *matCellDef="let element">{{ element.name }}</td>
@@ -14,12 +14,15 @@
       <ng-container matColumnDef="actions">
         <th appTransform="20px" mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
+
           <button mat-icon-button (click)="edit(element)">
             <mat-icon fontIcon="edit document"> Edit </mat-icon>
           </button>
-          <button mat-icon-button (click)="delete(element)">
+
+          <button mat-icon-button (click)="delete(element.id)">
             <mat-icon fontIcon="delete"> delete </mat-icon>
           </button>
+
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
@@ -27,3 +30,4 @@
     </table>
   </div>
 </div>
+

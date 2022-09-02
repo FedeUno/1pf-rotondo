@@ -1,11 +1,48 @@
-<div class="grid-container">
-  <app-toolbar class="grid-header"></app-toolbar>
+<mat-sidenav-container fullscreen >
 
-  <app-navbar class="grid-menu"></app-navbar>
+  <mat-sidenav #sidenav mode="push">
+   
+    <mat-toolbar color="primary">
+      <span> Menu </span>
+      <span class="spacer"></span> 
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon> menu</mat-icon>
+        
+      </button>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a 
+        routerLink="./courses"
+        mat-list-item>
+        <mat-icon mat-list-icon>label</mat-icon>
+        <span> Courses </span>
+      </a>
+      <a 
+        routerLink="./inscriptions"
+        mat-list-item>
+        <mat-icon mat-list-icon>add</mat-icon>
+        <span> Inscriptions </span>
+      </a>
+      <a 
+        routerLink="./students"
+        mat-list-item>
+        <mat-icon mat-list-icon>group</mat-icon>
+        <span> Students </span>
+      </a>
+     
 
-  <!--   <div class="grid-students"></div> -->
+    </mat-nav-list>
 
-  <!--   <app-footer class="grid-footer"></app-footer> -->
-</div>
+  </mat-sidenav>
 
-<router-outlet></router-outlet>
+  <mat-toolbar>
+    <button mat-icon-button (click)="sidenav.toggle()">      
+      <mat-icon> menu</mat-icon>      
+    </button>
+    <span class="spacer"></span>
+    <button mat-button>Logout</button>
+  </mat-toolbar>
+  <div class="container">
+    <router-outlet> </router-outlet>
+  </div>
+</mat-sidenav-container>
