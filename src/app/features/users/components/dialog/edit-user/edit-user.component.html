@@ -1,0 +1,67 @@
+<mat-toolbar color="primary" class="titulo mt-4">
+  <div align="center" appTitulo>Edit USer</div>
+</mat-toolbar>
+
+<div mat-dialog-content>
+  <form [formGroup]="form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>User</mat-label>
+      <input formControlName="username" matInput type="text" />
+      <p
+        *ngIf="form.get('username')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        This field is required
+      </p>
+      <p
+        *ngIf="form.get('username')?.errors?.['pattern']"
+        style="font-size: x-small; color: red"
+      >
+        Can only enter letters
+      </p>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input formControlName="password" matInput />
+      <p
+        *ngIf="form.get('password')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        This field is required
+      </p>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Avatar</mat-label>
+      <input formControlName="avatar" matInput />
+      <p
+        *ngIf="form.get('avatar')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        This field is required
+      </p>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Admin</mat-label>
+      <input formControlName="admin" matInput />
+      <p
+        *ngIf="form.get('admin')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        This field is required
+      </p>
+    </mat-form-field>
+
+
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="toClose()">To Close</button>
+  <button mat-button cdkFocusInitial (click)="toUpdate()" [disabled]="!form.valid" >
+    To Update
+  </button>
+</div>

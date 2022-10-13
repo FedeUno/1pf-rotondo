@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormCoursesComponent } from './components/form-courses/form-courses.component';
-import { DashboardCursosComponent } from './components/dashboard-courses/dashboard-courses.component';
+import { DashboardCoursesComponent } from './components/dashboard-courses/dashboard-courses.component';
+import { AddCourseComponent } from './components/add-course/add-course.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardCursosComponent,
-    children: [
-      { path: 'list', component: FormCoursesComponent },
-      { path: 'list', component: FormCoursesComponent },
-      { path: 'list', component: FormCoursesComponent },
-    ],
+    component: DashboardCoursesComponent,
+  },
+  {
+    path: 'add',
+    component: AddCourseComponent,
   },
 ];
 

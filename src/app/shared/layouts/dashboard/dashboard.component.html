@@ -1,48 +1,60 @@
-<mat-sidenav-container fullscreen >
-
+<mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav mode="push">
-   
     <mat-toolbar color="primary">
       <span> Menu </span>
-      <span class="spacer"></span> 
+      <span class="spacer"></span>
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon> menu</mat-icon>
-        
       </button>
     </mat-toolbar>
     <mat-nav-list>
-      <a 
-        routerLink="./courses"
-        mat-list-item>
+      <a routerLink="./courses" mat-list-item>
         <mat-icon mat-list-icon>label</mat-icon>
         <span> Courses </span>
       </a>
-      <a 
-        routerLink="./inscriptions"
-        mat-list-item>
-        <mat-icon mat-list-icon>add</mat-icon>
-        <span> Inscriptions </span>
+      <a routerLink="./users" mat-list-item>
+        <mat-icon mat-list-icon>group</mat-icon>
+        <span> Users </span>
       </a>
-      <a 
-        routerLink="./students"
-        mat-list-item>
+      <a routerLink="./inscriptions" mat-list-item>
+        <mat-icon mat-list-icon>add</mat-icon>
+        <span>Inscriptions </span>
+      </a>
+      <a routerLink="./students" mat-list-item>
         <mat-icon mat-list-icon>group</mat-icon>
         <span> Students </span>
       </a>
-     
-
     </mat-nav-list>
-
   </mat-sidenav>
 
   <mat-toolbar>
-    <button mat-icon-button (click)="sidenav.toggle()">      
-      <mat-icon> menu</mat-icon>      
+    <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">
+      <mat-icon> menu</mat-icon>
     </button>
+    <ng-container *ngIf="activeUser$ | async as user">
+      &nbsp; &nbsp;
+      <span> Welcome {{ user.username }} </span>
+    </ng-container>
+
     <span class="spacer"></span>
-    <button mat-button>Logout</button>
+
+      <ng-container *ngIf="activeUser$ | async as user">
+      <img class="picture" src="{{user.avatar}}" />
+    </ng-container>
+    &nbsp; &nbsp;
+
+    <button mat-icon-button matTooltip="Logout">
+      <mat-icon
+        fontIcon="logout"
+        color="primary"
+        routerLink="add"
+        (click)="logout()"
+      ></mat-icon>
+    </button>
   </mat-toolbar>
   <div class="container">
     <router-outlet> </router-outlet>
+    <br />
   </div>
+  <mat-toolbar class="footer"> <p>® Federico Rotondo</p></mat-toolbar>
 </mat-sidenav-container>

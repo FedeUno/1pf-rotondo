@@ -1,0 +1,51 @@
+<mat-toolbar color="primary" class="titulo mt-4">
+  <div align="center" appTitulo>Add Course</div>
+</mat-toolbar>
+
+<div mat-dialog-content class="titulo mt-4">
+  <form
+    [formGroup]="form"
+    align="center"
+    (ngSubmit)="addCourse()"
+    style="width: 10px"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput type="text" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startDate" formControlName="startDate" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Finish Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="finishDate"
+        formControlName="finishDate"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="finishDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #finishDate></mat-datepicker>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Teacher</mat-label>
+      <input formControlName="teacher" matInput />
+    </mat-form-field>
+  </form>
+  <div mat-dialog-actions align="center">
+    <button mat-button (click)="toClose()">To Close</button>
+    <button mat-button type="submit" (click)="addCourse()">Add</button>
+  </div>
+</div>
+<hr />

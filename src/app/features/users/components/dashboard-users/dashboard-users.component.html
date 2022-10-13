@@ -1,0 +1,7 @@
+<div 
+style="margin-left:50%;"
+*ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
+  <b>Loading...</b>
+</div>
+<app-list-users *ngIf="!(loading$ | async)"></app-list-users>

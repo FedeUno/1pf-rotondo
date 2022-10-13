@@ -1,0 +1,58 @@
+<div class="signin-content">
+
+  
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="login()">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR69PSUJNImHwVp2rA3yzOLj4J8tEmA5Lackw&usqp=CAU">  
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            placeholder="User"
+            formControlName="user"
+            required
+          />
+          <mat-error>
+            <span *ngIf="form.get('user')?.invalid" class="error"
+              >Username is required
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            required
+          />
+          <mat-error>
+            <span *ngIf="form.get('password')?.invalid" class="error"
+              >Password is required
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+    
+          color="primary"
+        >
+          Entry
+        </button>
+      </form>
+      <mat-divider></mat-divider>
+      <div>
+        <h2>Administrator</h2>
+        <h3>User: coder</h3>
+        <h3>Password: 123456</h3>
+      </div>
+      <div>
+        <h2>Generic User</h2>
+        <h3>User: house</h3>
+        <h3>Password: 123456</h3>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+

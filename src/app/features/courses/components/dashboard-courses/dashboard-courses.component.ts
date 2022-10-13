@@ -1,92 +1,22 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
-import { Subscription, Observable } from 'rxjs';
-import { CoursesService } from '../../../../services/courses.service';
-import { FormCoursesComponent } from '../form-courses/form-courses.component';
-import { Course } from '../../../../core/interfaces/course';
-
-
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { CourseState } from 'src/app/core/models/course.state';
+import { loadCourses } from '../../state/course.actions';
+import { selectorLoadingCourses } from '../../state/course.selectors';
 
 
 @Component({
   selector: 'app-dashboard-courses',
   templateUrl: './dashboard-courses.component.html',
-  styleUrls: ['./dashboard-courses.component.css'],
 })
-export class DashboardCursosComponent implements OnInit, OnDestroy {
-  
-  courses: Course[] = [];
+export class DashboardCoursesComponent implements OnInit {
+  loading$!: Observable<boolean>;
 
-  courses$!: Observable<Course[]>
-
-  subscription!: Subscription;
-
-  columns: string[] = ['name', 'teacher', 'actions'];
-
-  dataSource: MatTableDataSource<Course>;
-
-  @ViewChild(MatTable) table!: MatTable<Course>;
-
-  constructor(
-    private coursesService: CoursesService,
-    private dialog: MatDialog,    
-    ) {
-
-      this.subscription = this.coursesService.getCourses()
-     .subscribe((courses) => {this.courses = courses }) 
-
-
-
-    this.dataSource = new MatTableDataSource(this.courses);
-  }
-
-
-
-
-/*   delete(element: Course) {
-    this.dataSource.data = this.dataSource.data.filter(
-      (course: Course) => course.id != element.id
-    );
-    this.courses = this.dataSource.data  
- 
-  } */
-
-  edit(element: Course) {
-    const dialogRef = this.dialog.open(FormCoursesComponent, {
-      width: '280px',
-      data: element,
-    });
- 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        const item = this.courses.find(
-          (course) => course.id === result.id
-        );
-        const index = this.courses.indexOf(item!);
-        this.courses[index] = result;
-        this.table.renderRows();
-      }
-    });
-  }
-
-   filter(event: Event) {
-    const obtainedValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = obtainedValue.trim().toLocaleLowerCase();
-  } 
+  constructor(private store: Store<CourseState>) {}
 
   ngOnInit(): void {
-      this.courses$ = this.coursesService.getCourses()
+    this.store.dispatch(loadCourses());
+    this.loading$ = this.store.select(selectorLoadingCourses);
   }
-
-  delete(id:string){
-    this.coursesService.deleteCourse(id).subscribe((course:Course)=>{
-      this.ngOnInit()
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
 }

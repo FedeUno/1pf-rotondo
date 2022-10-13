@@ -20,6 +20,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -45,8 +46,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatDialogModule,
     MatGridListModule,
+    MatProgressSpinnerModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,    
   ],
 })
 export class MaterialModule {}

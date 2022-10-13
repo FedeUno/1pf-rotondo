@@ -1,0 +1,86 @@
+<mat-toolbar color="primary" class="titulo mt-4">
+  <div align="center" appTitulo>Edit Course</div>
+</mat-toolbar>
+
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput type="text" />
+      <p
+        *ngIf="form.get('name')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        This field is required
+      </p>
+      <p
+        *ngIf="form.get('name')?.errors?.['pattern']"
+        style="font-size: x-small; color: red"
+      >
+        Can only enter letters
+      </p>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startDate" formControlName="startDate" />
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+      <p
+        *ngIf="form.get('startDate')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        You must enter a valid date
+      </p>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Finish Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="finishDate"
+        formControlName="finishDate"
+      />
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="finishDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #finishDate></mat-datepicker>
+      <p
+        *ngIf="form.get('finishDate')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        You must enter a valid date
+      </p>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Teacher</mat-label>
+      <input formControlName="teacher" matInput />
+      <p
+        *ngIf="form.get('teacher')?.errors?.['required']"
+        style="font-size: x-small; color: red"
+      >
+        This field is required
+      </p>
+      <p
+        *ngIf="form.get('teacher')?.errors?.['pattern']"
+        style="font-size: x-small; color: red"
+      >
+        Can only enter letters
+      </p>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="toClose()">To Close</button>
+  <button mat-button cdkFocusInitial (click)="toUpdate()" [disabled]="!form.valid" >
+    To Update
+  </button>
+</div>

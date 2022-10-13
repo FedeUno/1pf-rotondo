@@ -1,0 +1,65 @@
+<button mat-icon-button mat-raised-button                
+matTooltip="Add User">
+  <mat-icon fontIcon="person_add" routerLink="add"> </mat-icon> 
+</button>
+
+
+<div class="table-container">
+
+  <mat-toolbar color="primary" class="titulo mt-4">
+    <div align="center" appTitulo>
+      User List
+    </div>
+  </mat-toolbar>
+
+  <div class="container-item">
+  
+
+    <table class="cont-table" mat-table [dataSource]="users$">
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>User</th>
+        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="password">
+        <th mat-header-cell *matHeaderCellDef>Password</th>
+        <td mat-cell *matCellDef="let element">{{ element.password }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef>Avatar</th>
+        <td mat-cell *matCellDef="let element"><img [src]= element.avatar></td>
+      </ng-container>
+
+      <ng-container matColumnDef="admin">
+        <th mat-header-cell *matHeaderCellDef>Admin</th>
+        <td mat-cell *matCellDef="let element">{{ element.admin }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions" >
+        <th appTransform="20px" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button *ngIf="element.password!= '123456' " (click)="openDialogEdit(element)" mat-raised-button                
+          matTooltip="Edit">
+            <mat-icon fontIcon="edit document"> Edit </mat-icon>
+          </button>
+
+          <button mat-icon-button *ngIf="element.password!= '123456' "  (click)="openDialogDelete(element)"
+          mat-raised-button                
+          matTooltip="Delete"
+          >
+            <mat-icon fontIcon="delete"> Delete </mat-icon>
+          </button> 
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns:columns"></tr>
+
+
+      
+    </table>
+  </div>
+</div>
+
+
+<router-outlet></router-outlet>
